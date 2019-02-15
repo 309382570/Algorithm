@@ -23,6 +23,7 @@ func PostOrderTraversal(root *TreeNode) []int {
 // PostOrderTraversal1 in Iteration
 func PostOrderTraversal1(root *TreeNode) []int {
 	// 思路 后序是左右中。我们获取到中右左，然后反转slice即可
+	// 相当于中序的遍历中，将算法中Left和Right对调，然后反转
 	var ret []int
 	stack := []*TreeNode{}
 	curr := root
