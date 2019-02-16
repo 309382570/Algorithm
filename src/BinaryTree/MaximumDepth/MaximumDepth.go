@@ -34,3 +34,34 @@ func maxDepth1(root *TreeNode) int {
 	}
 	return 1 + getL(maxDepth1(root.Left), maxDepth1(root.Right))
 }
+
+// maxDepth2 : 不使用递归，适用 Iteration
+func maxDepth2(root *TreeNode) int {
+
+	if root == nil {
+		return 0
+	}
+	max := 0
+	stack := []*TreeNode{root}
+	ret := []int{1}
+
+	for len(stack) > 0 {
+		s := stack[len(stack)-1]
+		stack = stack[:len(stack)-1]
+		tmp := ret[len(ret)-1]
+		ret = ret[:len(ret)-1]
+		max = getL(max, tmp)
+
+		if s.Left != nil {
+			ret = append(ret, tmp+1)
+			stack = append(stack, s.Left)
+		}
+		if s.Right != nil {
+			ret = append(ret, tmp+1)
+			stack = append(stack, s.Right)
+		}
+
+	}
+
+	return max
+}

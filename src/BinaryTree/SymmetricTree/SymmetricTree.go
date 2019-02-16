@@ -53,52 +53,39 @@ func isSymmetric1(root *TreeNode) bool {
 		return true
 	}
 
-	var stack []*TreeNode
+	if root.Left == nil && root.Right == nil {
+		return true
+	}
+
 	if root.Left == nil {
 		if root.Right != nil {
 			return false
 		}
-		// 不能用下面这个， 加了 nil之后，slice里面长度会加 1 ！！！
-		// stack = append(stack, root.Left, root.Right)
-		if root.Right == nil {
-			return true
-		}
-
 	} else if root.Right == nil {
 		return false
 	}
 
-	stack = append(stack, root.Right, root.Left)
+	stack := []*TreeNode{root.Left, root.Right}
 
 	for len(stack) > 0 {
-
-		left := stack[len(stack)-1]
-		stack = stack[:len(stack)-1]
+		if (len(stack) % 2) != 0 {
+			return false
+		}
 		right := stack[len(stack)-1]
 		stack = stack[:len(stack)-1]
+		left := stack[len(stack)-1]
+		stack = stack[:len(stack)-1]
 
-		// if left != nil || right !=nil {
-		// 	return left == right
-		// }
-
-		// if left != nil {
-		// 	if right == nil {
-		// 		return false
-		// 	}
-		// 	if left.Val != right.Val {
-		// 		return false
-		// 	}
-		// } else if right != nil {
-		// 	return false
-		// }
-
+		if right.Val != left.Val {
+			return false
+		}
 		if left.Left != nil {
 			if right.Right == nil {
 				return false
 			}
-			stack = append(stack, right.Right, left.Left)
-
-		} else if right.Right != nil {
+			stack = append(stack, left.Left)
+			stack = append(stack, right.Right)
+		} else if right.Right == nil {
 			return false
 		}
 
@@ -107,7 +94,7 @@ func isSymmetric1(root *TreeNode) bool {
 				return false
 			}
 			stack = append(stack, left.Right, right.Left)
-		} else if right.Left == nil {
+		} else if right.Left != nil {
 			return false
 		}
 
