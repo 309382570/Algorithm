@@ -48,58 +48,64 @@ func ish(l, r *TreeNode) bool {
 }
 
 // isSymmetric in iteraion
+
+//   1
+//  / \
+// 2   2
+//  \   \
+//   3    3
+
 func isSymmetric1(root *TreeNode) bool {
 	if root == nil {
 		return true
 	}
 
-	if root.Left == nil && root.Right == nil {
-		return true
-	}
-
-	if root.Left == nil {
-		if root.Right != nil {
-			return false
-		}
-	} else if root.Right == nil {
-		return false
+	if root.Left == nil || root.Right == nil {
+		return root.Left == root.Right
 	}
 
 	stack := []*TreeNode{root.Left, root.Right}
 
 	for len(stack) > 0 {
-		if (len(stack) % 2) != 0 {
-			return false
+		r := stack[len(stack)-1]
+		stack = stack[:len(stack)-1]
+		l := stack[len(stack)-1]
+		stack = stack[:len(stack)-1]
+		if r == nil && l == nil {
+			continue
 		}
-		right := stack[len(stack)-1]
-		stack = stack[:len(stack)-1]
-		left := stack[len(stack)-1]
-		stack = stack[:len(stack)-1]
 
-		if right.Val != left.Val {
-			return false
-		}
-		if left.Left != nil {
-			if right.Right == nil {
+		if r != nil {
+			if l == nil {
 				return false
 			}
-			stack = append(stack, left.Left)
-			stack = append(stack, right.Right)
-		} else if right.Right == nil {
-			return false
-		}
-
-		if left.Right != nil {
-			if right.Left == nil {
+			if r.Val != l.Val {
 				return false
 			}
-			stack = append(stack, left.Right, right.Left)
-		} else if right.Left != nil {
+
+			if l.Left != nil {
+				if r.Right == nil {
+					return false
+				}
+			} else if r.Right != nil {
+				return false
+			}
+
+			stack = append(stack, l.Left, r.Right)
+
+			if l.Right != nil {
+				if r.Left == nil {
+					return false
+				}
+			} else if r.Left != nil {
+				return false
+			}
+			stack = append(stack, l.Right, r.Left)
+
+		} else if l == nil {
 			return false
 		}
-
 	}
-
 	return true
 }
 
