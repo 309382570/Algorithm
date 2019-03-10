@@ -14,6 +14,10 @@ Input: (7 -> 2 -> 4 -> 3) + (5 -> 6 -> 4)
 Output: 7 -> 8 -> 0 -> 7
 */
 
+/*
+从后面的值相加，想到 stack。记得满十进位
+*/
+
 type ListNode struct {
 	Val  int
 	Next *ListNode
@@ -25,35 +29,49 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 		stack1 = append(stack1, l1.Val)
 		l1 = l1.Next
 	}
+
 	for l2 != nil {
 		stack2 = append(stack2, l2.Val)
 		l2 = l2.Next
 	}
 
-	node := ListNode{}
-	sum := 0
-	for len(stack1) > 0 || len(stack2) > 0 {
-		if len(stack1) > 0 {
-			sum += stack1[len(stack1)-1]
-			stack1 = stack1[:len(stack1)-1]
+	addone := 0
+	var head *ListNode
+	for len(stack1) > 0 && len(stack2) > 0 {
+		s1 := stack1[len(stack1)-1]
+		stack1 = stack1[:len(stack1)-1]
 
-		}
+		s2 := stack2[len(stack2)-1]
+		stack2 = stack2[:len(stack2)-1]
 
-		if len(stack2) > 0 {
-			sum += stack2[len(stack2)-1]
-			stack2 = stack1[:len(stack2)-1]
-		}
+		val := (s1 + s2 + addone) % 10
+		addone = (s1 + s2 + addone) / 10
 
-		node.Val = sum % 10
-		head := ListNode{}
-		head.Next = &node
-		node = head
-		sum = sum / 10
+		node := &ListNode{Val: val, Next: head}
+		head = node
 	}
-	node.Val = sum
-	if node.Val == 0 {
-		return node.Next
-	}
-	return &node
 
+	for len(stack1) > 0 {
+		s1 := stack1[len(stack1)-1]
+		stack1 = stack1[:len(stack1)-1]
+		val := (s1 + addone) % 10
+		addone = (s1 + addone) / 10
+		node := &ListNode{Val: val, Next: head}
+		head = node
+	}
+
+	for len(stack2) > 0 {
+		s2 := stack2[len(stack2)-1]
+		stack2 = stack2[:len(stack2)-1]
+		val := (s2 + addone) % 10
+		addone = (s2 + addone) / 10
+		node := &ListNode{Val: val, Next: head}
+		head = node
+	}
+
+	if addone == 1 {
+		node := &ListNode{Val: addone, Next: head}
+		head = node
+	}
+	return head
 }
