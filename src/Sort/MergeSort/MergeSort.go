@@ -1,0 +1,5 @@
+package MergeSort
+
+func mergeSort() {
+
+}
