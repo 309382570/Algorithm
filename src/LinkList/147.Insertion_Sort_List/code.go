@@ -28,13 +28,33 @@ type ListNode struct {
 	Next *ListNode
 }
 
+// 用递归
 func insertionSortList(head *ListNode) *ListNode {
 
-	cur := head
-	pre = &ListNode{Next: head}
-	for h.Next != nil {
+	tmp := head
 
-		}
+	for tmp != nil {
+		tmp = exchange(tmp, tmp.Next)
+		tmp = tmp.Next
 	}
+	return head
+
+}
+
+func exchange(first, second *ListNode) *ListNode {
+
+	if second == nil {
+		return first
+	}
+
+	second = exchange(second, second.Next)
+
+	if first.Val > second.Val {
+		tmp := first.Val
+		first.Val = second.Val
+		second.Val = tmp
+	}
+
+	return first
 
 }

@@ -9,7 +9,7 @@
 
 #### LinkList
 * 109.Conver Sorted List to Binary Tree ☑️
-* 147.Insert Sort List (to do)
+* 147.Insert Sort List ☑️
 * 725.Split Linked List in Parts ☑️
 
 
