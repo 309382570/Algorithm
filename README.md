@@ -8,5 +8,12 @@
 
 
 #### LinkList
-
+* 109.Conver Sorted List to Binary Tree ☑️
+* 147.Insert Sort List (to do)
 * 725.Split Linked List in Parts ☑️
+
+
+#### Sort
+
+* Bubble Sort ☑️
+* Insert SOrt ☑️
