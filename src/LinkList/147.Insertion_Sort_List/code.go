@@ -58,3 +58,42 @@ func exchange(first, second *ListNode) *ListNode {
 	return first
 
 }
+
+// Leetcode
+
+func test(head *ListNode) *ListNode {
+	if head == nil {
+		return nil
+	}
+	tmp := head
+	arr := make([]*ListNode, 0)
+	for tmp != nil {
+		arr = append(arr, tmp)
+		tmp = tmp.Next
+	}
+
+	n := len(arr)
+
+	for i := 1; i < n; i++ {
+		for j := i - 1; j > 0; j-- {
+			if arr[j].Val > arr[j+1].Val {
+				arr[j], arr[j+1] = arr[j+1], arr[j]
+			} else {
+				break
+			}
+		}
+	}
+
+	var pre, cur *ListNode
+	cur = arr[0]
+	pre = cur
+
+	for i := 1; i < n; i++ {
+		cur.Next = arr[i]
+		cur = cur.Next
+	}
+
+	cur.Next = nil
+
+	return pre
+}

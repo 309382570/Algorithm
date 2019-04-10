@@ -16,33 +16,31 @@ type ListNode struct {
 }
 
 // [2,1]
+// 使用递归
 func sortList(head *ListNode) *ListNode {
 
-	tmp := head
-	stack := []int{}
-
-	// [2,]
 	for tmp != nil {
-		stack = append(stack, tmp.Val)
+		tmp = Recrusion(tmp, tmp.Next)
 		tmp = tmp.Next
 	}
-
-	for i := 0; i < len(stack)-2; i++ {
-		for j := 0; j < len(stack)-1-i; j++ {
-			if stack[j] > stack[j+1] {
-				stack[j], stack[j+1] = stack[j+1], stack[j]
-			}
-
-		}
-	}
-
-	count := 0
-	tmp2 := head
-	for tmp2 != nil {
-		tmp2.Val = stack[count]
-		tmp2 = tmp2.Next
-		count++
-	}
-
-	return head
+	return Recrusion(head, head.Next)
 }
+
+func Recrusion(a, b *ListNode) *ListNode {
+	if b == nil {
+		return a
+	}
+
+	b = Recrusion(b, b.Next)
+
+	if a.Val > b.Val {
+		tmp := b.Val
+		b.Val = a.Val
+		a.Val = tmp
+	}
+
+	return a
+
+}
+
+//Leetcode
