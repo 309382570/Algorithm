@@ -8,12 +8,15 @@
 
 
 #### LinkList
+* 86. Partition List ☑️
 * 109.Conver Sorted List to Binary Tree ☑️
 * 147.Insert Sort List ☑️
+* 148.Sort List ☑️
 * 725.Split Linked List in Parts ☑️
 
 
 #### Sort
 
 * Bubble Sort ☑️
-* Insert SOrt ☑️
+* Insert Sort ☑️
+* Merge Sort ☑️
