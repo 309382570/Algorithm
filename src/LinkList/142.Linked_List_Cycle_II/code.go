@@ -13,6 +13,11 @@ type ListNode struct {
 	Next *ListNode
 }
 
+// 快慢指针
+// 快慢指针相遇，各自走过的距离有关系
+
 func detectCycle(head *ListNode) *ListNode {
+
+	return nil
 
 }
